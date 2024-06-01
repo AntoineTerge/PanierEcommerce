@@ -49,15 +49,12 @@ const categories = [
     })
   ),
 ];
-
 let i = 0;
 document.getElementById("root").innerHTML = categories
   .map((item) => {
     var { Image, title, price, author } = item;
     return (
-      `
-      
-      <div class='box'>
+      `<div class='box'>
     <div class='img-box'>
     <img class='images' src="${Image}"></img>
     </div>
@@ -69,10 +66,7 @@ document.getElementById("root").innerHTML = categories
       i++ +
       ")'>Ajouter au pannier</button>" +
       `</div>
-      
-    </div>
-    
-    `
+    </div>`
     );
   })
   .join("");
@@ -83,12 +77,10 @@ function addToCart(a) {
   cart.push({ ...categories[a] });
   displaycart();
 }
-
 function delElement(a) {
   cart.splice(a, 1);
   displaycart();
 }
-
 function displaycart(a) {
   let j = 0;
   total = 0;
@@ -103,7 +95,6 @@ function displaycart(a) {
       .map((item) => {
         var { Image, title, price, author } = item;
         total = total + price;
-
         document.getElementById("total").innerHTML = +total + " €";
         return (
           `<div class='cart-item'>
