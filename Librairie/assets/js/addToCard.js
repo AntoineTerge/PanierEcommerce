@@ -50,26 +50,64 @@ const categories = [
   ),
 ];
 let i = 0;
-document.getElementById("root").innerHTML = categories
-  .map((item) => {
-    var { Image, title, price, author } = item;
-    return (
-      `<div class='box'>
-    <div class='img-box'>
-    <img class='images' src="${Image}"></img>
-    </div>
-    <div class='bottom'>
-    <h3>${title}</h3>
-    <h3>${author}</h3>
-    <h2>${price} €</h2>` +
-      "<button class='addCart' onclick='addToCart(" +
-      i++ +
-      ")'>Ajouter au pannier</button>" +
-      `</div>
-    </div>`
-    );
+
+document.getElementById('searchBar').addEventListener('keyup', (e) => {
+  const searchData = e.target.value.toLowerCase();
+  console.log(e)
+  const filteredData = categories.filter((item) => {
+      return (
+          item.title.toLowerCase().includes(searchData)
+      )
   })
-  .join("");
+  displayItem(filteredData)
+});
+
+const displayItem = (items) => {
+  document.getElementById('root').innerHTML = items.map((item) => {
+    var { Image, title,  author, price} = item;
+      return (
+          `<div class='box'>
+              <div class='img-box'>
+                  <img class='images' src=${Image}></img>
+              </div> 
+              <div class='bottom'>
+                  <p>${title}</p>
+                  <p>${author}</p>
+                  <h2>$ ${price}.00</h2>
+                  ` +
+                  "<button class='addCart' onclick='addToCart(" +
+                  i++ +
+                  ")'>Ajouter au pannier</button>" +
+                  `
+                  </div>
+          </div>`
+      )
+  }).join('')
+};
+displayItem(categories);
+
+
+// document.getElementById("root").innerHTML = categories
+//   .map((item) => {
+//     var { Image, title, author, price } = item;
+//     return (
+//       `<div class='box'>
+//     <div class='img-box'>
+//     <img class='images' src="${Image}"></img>
+//     </div>
+//     <div class='bottom'>
+//     <h3>${title}</h3>
+//     <h3>${author}</h3>
+//     <h2>${price} €</h2>` +
+//       "<button class='addCart' onclick='addToCart(" +
+//       i++ +
+//       ")'>Ajouter au pannier</button>" +
+//       `</div>
+//     </div>`
+//     );
+    
+//   })
+//   .join("");
 
 var cart = [];
 
@@ -93,7 +131,7 @@ function displaycart(a) {
   } else {
     document.getElementById("cartItem").innerHTML = cart
       .map((item) => {
-        var { Image, title, price, author } = item;
+        var { Image, title, author, price } = item;
         total = total + price;
         document.getElementById("total").innerHTML = +total + " €";
         return (
@@ -111,4 +149,8 @@ function displaycart(a) {
       })
       .join("");
   }
-}
+};
+
+
+
+
